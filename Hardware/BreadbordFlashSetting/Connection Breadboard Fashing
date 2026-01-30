@@ -1,0 +1,11 @@
+Connection Breadboard:
+
+Arduino                    Attiny84
+
+                            5V-------------- VCC --- capacitor 104 --- GND(attiny) --- GND
+Dig 52 -------------------- Pa4
+Dig 50 -------------------- Pa5
+Dig 51 -------------------- Pa6
+Dig 10 -------------------- Reset ----------- capacitor 10 uF ---- GND
+Reset -- 10 uF -- GND       PB0 --- Quarz pin1 --- capacitor 22 -- GND
+                            PB1 --- Quarz pin2 --- capacitor 22 -- GND
