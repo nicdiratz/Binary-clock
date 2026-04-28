@@ -19,6 +19,8 @@ non-commercial use.
 
 Commercial use is strictly prohibited without prior written permission.
 
-<img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/121e0860-4ce7-4322-9d9b-924e26955354" />
+<img width="241" height="237" alt="image" src="https://github.com/user-attachments/assets/121e0860-4ce7-4322-9d9b-924e26955354" />
 
 <img width="241" height="237" alt="image" src="https://github.com/user-attachments/assets/6c85f751-d749-4006-9804-aa7b6cd730fa" />
+
+blob:https://app.cirkitdesigner.com/8b7d76a8-da7b-4f89-bd75-c1b54eabd6bc
