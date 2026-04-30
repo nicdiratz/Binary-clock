@@ -11,15 +11,16 @@ The pin's flags are:
 
 <img width="200" height="150" alt="image" src="https://github.com/user-attachments/assets/121e0860-4ce7-4322-9d9b-924e26955354" />
 
+
 <img width="141" height="137" alt="image" src="https://github.com/user-attachments/assets/6c85f751-d749-4006-9804-aa7b6cd730fa" />
 
 I used this scheme to have a serial connection between the datashifters:
 
 <img width="168" height="150" alt="immagine" src="https://github.com/user-attachments/assets/5d047097-acbb-4dde-a5cf-96d81a232dc7" />
 
-#The final circuit Scheme is this:
+The final circuit Scheme is this:
 
-<img width="200" height="274" alt="circuit_image(2)" src="https://github.com/user-attachments/assets/660f5fdf-b5c2-4414-99ba-e415e2027c60" />
+<img width="300" height="374" alt="circuit_image(2)" src="https://github.com/user-attachments/assets/660f5fdf-b5c2-4414-99ba-e415e2027c60" />
 
 
 ## License
