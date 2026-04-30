@@ -27,3 +27,5 @@ Commercial use is strictly prohibited without prior written permission.
 
 <img width="268" height="250" alt="immagine" src="https://github.com/user-attachments/assets/5d047097-acbb-4dde-a5cf-96d81a232dc7" />
 
+<img width="3000" height="3534" alt="circuit_image(1)" src="https://github.com/user-attachments/assets/395be21e-a219-4c4c-a947-1eb814108d1d" />
+
