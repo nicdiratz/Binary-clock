@@ -1,5 +1,5 @@
 # Binary-clock
-This Binary clock is a project from software to hardware for a binary counting clock. Hours will be am and pm and seconds will be counted in Hexadecimal.
+This Binary clock is a project from software to hardware for a binary counting clock (12h). The first 4 leds are for the hours (12h) the second  
 
 
 
@@ -19,7 +19,7 @@ non-commercial use.
 
 Commercial use is strictly prohibited without prior written permission.
 
-<img width="241" height="300" alt="image" src="https://github.com/user-attachments/assets/121e0860-4ce7-4322-9d9b-924e26955354" />
+<img width="300" height="250" alt="image" src="https://github.com/user-attachments/assets/121e0860-4ce7-4322-9d9b-924e26955354" />
 
 <img width="241" height="237" alt="image" src="https://github.com/user-attachments/assets/6c85f751-d749-4006-9804-aa7b6cd730fa" />
 
@@ -27,5 +27,5 @@ Commercial use is strictly prohibited without prior written permission.
 
 <img width="268" height="250" alt="immagine" src="https://github.com/user-attachments/assets/5d047097-acbb-4dde-a5cf-96d81a232dc7" />
 
-<img width="3000" height="3534" alt="circuit_image(1)" src="https://github.com/user-attachments/assets/395be21e-a219-4c4c-a947-1eb814108d1d" />
+<img width="300" height="374" alt="circuit_image(2)" src="https://github.com/user-attachments/assets/660f5fdf-b5c2-4414-99ba-e415e2027c60" />
 
