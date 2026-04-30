@@ -1,0 +1,132 @@
+#define F_CPU 16000000UL
+//#define F_CPU 8000000UL
+//#define F_CPU 12000000UL
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+
+#define DATA_PIN PA0
+#define LATCH_PIN PA1
+#define CLOCK_PIN PA2
+#define BTN_ORE PA3
+#define BTN_MIN PA4
+#define DEBUG_LED PA7
+
+volatile uint8_t secondi = 0;
+volatile uint8_t minuti = 0;
+volatile uint8_t ore = 1; // Partiamo da 1
+volatile uint16_t millisecondi = 0;
+
+// Funzione shiftOut migliorata con piccoli ritardi per stabilità
+void shiftOut(uint8_t val) {
+  for (uint8_t i = 0; i < 8; i++) {
+    if (val & (1 << (7 - i)))
+      PORTA |= (1 << DATA_PIN);
+    else
+      PORTA &= ~(1 << DATA_PIN);
+
+    _delay_us(5); // Piccolo ritardo per stabilizzare il bit
+    PORTA |= (1 << CLOCK_PIN);
+    _delay_us(5);
+    PORTA &= ~(1 << CLOCK_PIN);
+  }
+}
+
+void aggiornaDisplay() {
+  PORTA &= ~(1 << LATCH_PIN);
+
+  // 1. Dati per SR2 (Registro Lontano): Contiene i 2 MSB dei minuti
+  // Spostiamo i minuti di 4 posizioni per prendere i bit 4 e 5, 
+  // e li isoliamo con & 0x03
+  uint8_t byteSR2 = (minuti >> 4) & 0x03;
+
+  // 2. Dati per SR1 (Registro Vicino): 
+  // Ore (4 bit) nei bit bassi (0-3), Minuti (4 bit) nei bit alti (4-7)
+  uint8_t byteSR1 = ((minuti & 0x0F) << 4) | (ore & 0x0F);
+
+  // INVIO: Il primo byte inviato (SR2) viaggia fino in fondo alla catena
+  shiftOut(byteSR2);
+  // Il secondo byte inviato (SR1) resta nel primo registro
+  shiftOut(byteSR1);
+
+  PORTA |= (1 << LATCH_PIN);
+}
+
+void setupTimer() {
+  TCCR1A = 0;
+  TCCR1B = 0;
+  TCCR1B |= (1 << WGM12); // CTC
+  TCCR1B |= (1 << CS11) | (1 << CS10); // Prescaler 64
+  OCR1A = 249;
+  TIMSK1 |= (1 << OCIE1A);
+}
+volatile uint8_t flagAggiorna = 1;
+
+ISR(TIM1_COMPA_vect) {
+    millisecondi++;
+    if (millisecondi >= 1000) {
+        millisecondi = 0;
+        secondi++;
+        flagAggiorna = 1; // Notifica al loop di aggiornare i LED
+        
+        if (secondi >= 60) {
+            secondi = 0;
+            minuti++;
+            if (minuti >= 60) {
+                minuti = 0;
+                ore++;
+                if (ore > 12) ore = 1;
+            }
+        }
+    }
+}
+void checkButtons() {
+  // Pulsante ORE
+  if (!(PINA & (1 << BTN_ORE))) {
+    _delay_ms(50); // Antirimbalzo
+    if (!(PINA & (1 << BTN_ORE))) {
+      ore++;
+      if (ore > 12) ore = 1;
+      aggiornaDisplay();
+      while (!(PINA & (1 << BTN_ORE))); // Attesa rilascio
+    }
+  }
+
+  // Pulsante MINUTI
+  if (!(PINA & (1 << BTN_MIN))) {
+    _delay_ms(50);
+    if (!(PINA & (1 << BTN_MIN))) {
+      minuti++;
+      if (minuti >= 60) minuti = 0;
+      secondi = 0;
+      aggiornaDisplay();
+      while (!(PINA & (1 << BTN_MIN)));
+    }
+  }
+}
+
+int main(void) {
+  DDRA |= (1 << DEBUG_LED) | (1 << DATA_PIN) | (1 << LATCH_PIN) | (1 << CLOCK_PIN);
+  
+  // Input con Pull-up
+  DDRA &= ~((1 << BTN_ORE) | (1 << BTN_MIN));
+  PORTA |= (1 << BTN_ORE) | (1 << BTN_MIN);
+
+  setupTimer();
+  sei();
+  aggiornaDisplay(); // Primo aggiornamento
+
+  while (1) {
+      checkButtons(); 
+      
+      // Aggiorna il display solo se è cambiato qualcosa o è passato un secondo
+      if (flagAggiorna) {
+          aggiornaDisplay();
+          flagAggiorna = 0;
+          PORTA ^= (1 << DEBUG_LED); // Lampeggio di debug
+      }
+      
+      // Rimosso il delay pesante per rendere checkButtons() più reattivo
+      _delay_ms(10); 
+    }
+}
