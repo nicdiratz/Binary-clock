@@ -1,3 +1,11 @@
+First of all, the ArduinoISP example has to be runned on Arduino. 
+Then after the connections with the Attiny: 
+  -external clock 16Mhz 
+  -the board as well as the Processor should be Attiny84 (board manager's library: attiny by David A. Mellis)
+  -the programmer has to be Arduino as ISP
+
+
+
 Connection Breadboard:
 
 Arduino                    Attiny84
