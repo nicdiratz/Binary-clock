@@ -22,6 +22,10 @@ The final circuit Scheme is this:
 
 <img width="300" height="374" alt="circuit_image(2)" src="https://github.com/user-attachments/assets/660f5fdf-b5c2-4414-99ba-e415e2027c60" />
 
+Breadboard Prototype:
+https://youtube.com/shorts/VfcjGmsS2oI?feature=share
+
+
 
 ## License
 
